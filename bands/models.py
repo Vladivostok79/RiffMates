@@ -6,4 +6,4 @@ class Musician(models.Model):
     last_name = models.CharField(max_length=50)
     birth = models.DateField()
     def __str__(self):
-        return self.name
+        return self.first_name
