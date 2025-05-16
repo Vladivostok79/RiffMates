@@ -1,4 +1,19 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>METANIT.COM</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" value="Send" >
+</form>
+</body>
+</html>{% extends "base.html" %}
 
 {% block title %}
     {{ block.super }}: News
