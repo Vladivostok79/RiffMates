@@ -7,3 +7,4 @@ class Musician(models.Model):
     birth = models.DateField()
     def _str_(self):
         return f"Musician(id={self.id}, last_name={self.last_name})"
+
