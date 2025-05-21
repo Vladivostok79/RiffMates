@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from bands.models import Musician
+from bands.models import Musician, Band
 from django.core.paginator import Paginator
 # Create your views here.
 def musician(request, musician_id):
@@ -26,3 +26,14 @@ def musicians(request):
         'page': page,
     }
     return render(request, "musicians.html", data)
+
+def bands_list(request):
+    bands = Band.objects.all().order_by('name')
+    paginator = Paginator(bands, 10)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    return render(request, 'bands_list.html', {'bands': page, 'page': page})
+
+def band_detail(request, pk):
+    band = get_object_or_404(Band, pk=pk)
+    return render(request, 'band_detail.html', {'band': band})
