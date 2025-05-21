@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ block.super }}: {{ band.name }} Details
+{% endblock title %}
+
+{% block content %}
+    <h1>{{ band.name }}</h1>
+
+    <h2>Members</h2>
+    {% if band.musicians.all %}
+        <ul>
+            {% for musician in band.musicians.all %}
+                <li>
+                    <a href="{% url 'musician' musician.id %}">
+                        {{ musician.last_name }}, {{ musician.first_name }} (born {{ musician.birth|date:"Y-m-d" }})
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No members in this band.</p>
+    {% endif %}
+
+    <h2>Upcoming Concerts</h2>
+    {% if band.concert_set.all %}
+        <ul>
+            {% for concert in band.concert_set.all %}
+                <li>
+                    {{ concert.date|date:"Y-m-d" }} at
+                    <a href="{% url 'venue' concert.room.venue.id %}">
+                        {{ concert.room.venue.name }} - {{ concert.room.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No upcoming concerts scheduled.</p>
+    {% endif %}
+
+    <a href="{% url 'bands' %}">Back to all bands</a>
+{% endblock content %}
